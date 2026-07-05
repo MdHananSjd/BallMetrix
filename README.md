@@ -2,9 +2,9 @@
 
 **Explainable ML platform for football match predictions.**
 
-WinScope aggregates data from multiple football sources, engineers predictive features, runs a tracked and versioned ML pipeline (XGBoost + Poisson + Monte Carlo simulation), and presents transparent, explainable predictions inside a premium analytics dashboard — built like an MLOps pipeline, not a notebook wearing a UI.
+BallMetrix aggregates data from multiple football sources, engineers predictive features, runs a tracked and versioned ML pipeline (XGBoost + Poisson + Monte Carlo simulation), and presents transparent, explainable predictions inside a premium analytics dashboard — built like an MLOps pipeline, not a notebook wearing a UI.
 
-> 🚧 **Status:** Early development. Architecture and API surface described below are the target design; see [`docs/ROADMAP.md`](docs/ROADMAP.md) for the phased build plan and current progress.
+> 🚧 **Status:** Early development. Architecture and API surface described below are the target design.
 
 ![status](https://img.shields.io/badge/status-in%20development-orange)
 ![license](https://img.shields.io/badge/license-MIT-blue)
@@ -53,7 +53,7 @@ flowchart LR
 ## Project structure
 
 ```
-winscope/
+BallMetrix/
 ├── apps/
 │   ├── frontend/        # React + Vite dashboard
 │   └── backend/         # FastAPI service
@@ -70,8 +70,8 @@ winscope/
 
 ```bash
 # Clone
-git clone https://github.com/<your-username>/winscope.git
-cd winscope
+git clone https://github.com/<your-username>/BallMetrix.git
+cd BallMetrix
 
 # Backend + DB + Redis
 docker compose up -d
@@ -82,13 +82,9 @@ npm install
 npm run dev
 ```
 
-## Roadmap
-
-Full phased plan — data strategy, MVP walking skeleton, ML pipeline, live data integration, MLOps/CI-CD, and design polish — lives in [`docs/ROADMAP.md`](docs/ROADMAP.md).
-
 ## Disclaimer
 
-Predictions are generated for educational and portfolio purposes. WinScope is not affiliated with, endorsed by, or sponsored by FIFA. Data pulled from third-party sources is subject to those sources' own terms of use, independent of this repository's license.
+Predictions are generated for educational and portfolio purposes. BallMetrix is not affiliated with, endorsed by, or sponsored by FIFA. Data pulled from third-party sources is subject to those sources' own terms of use, independent of this repository's license.
 
 ## License
 
