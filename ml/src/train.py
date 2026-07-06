@@ -115,23 +115,25 @@ def train_model():
 
     # Log new model version to DB registry directly
     try:
+        from sqlalchemy import text
         engine = create_engine(DATABASE_URL)
         with engine.connect() as conn:
-            # Register version
-            new_ver = f"v1.0.{int(pd.Timestamp.now().timestamp())}"
-            # Check current models
-            result = conn.execute(
-                f"INSERT INTO model_versions (version_string, run_id, status, created_at) "
-                f"VALUES ('{new_ver}', '{run_id}', 'candidate', NOW()) RETURNING id"
-            ).fetchone()
-            
-            if result:
-                ver_id = result[0]
-                conn.execute(
-                    f"INSERT INTO model_metrics (model_version_id, test_accuracy, test_log_loss, test_brier_score) "
-                    f"VALUES ({ver_id}, {accuracy}, {loss}, {brier})"
-                )
-                print(f"Successfully registered model candidate {new_ver} in database registry!")
+            with conn.begin():
+                # Register version
+                new_ver = f"v1.0.{int(pd.Timestamp.now().timestamp())}"
+                # Check current models
+                result = conn.execute(
+                    text(f"INSERT INTO model_versions (version_string, run_id, status, created_at) "
+                         f"VALUES ('{new_ver}', '{run_id}', 'candidate', NOW()) RETURNING id")
+                ).fetchone()
+                
+                if result:
+                    ver_id = result[0]
+                    conn.execute(
+                        text(f"INSERT INTO model_metrics (model_version_id, test_accuracy, test_log_loss, test_brier_score) "
+                             f"VALUES ({ver_id}, {accuracy}, {loss}, {brier})")
+                    )
+                    print(f"Successfully registered model candidate {new_ver} in database registry!")
     except Exception as e:
         print(f"Database registration warning: {e}")
 
