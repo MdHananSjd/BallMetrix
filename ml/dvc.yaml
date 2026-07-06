@@ -1,0 +1,23 @@
+stages:
+  features:
+    cmd: python src/feature_engineering.py
+    deps:
+      - src/feature_engineering.py
+    outs:
+      - data/processed/engineered_features.csv:
+          persist: true
+
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed/engineered_features.csv
+    outs:
+      - models/active_model.json:
+          persist: true
+
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - models/active_model.json
